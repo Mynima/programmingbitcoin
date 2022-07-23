@@ -117,10 +117,14 @@ class Block:
         the same as the merkle root of this block.
         '''
         # reverse each item in self.tx_hashes
+        hashes = [h[::-1] for h in self.tx_hashes]
         # compute the Merkle Root and reverse
+        m_root_comp = merkle_root(hashes)[::-1]
         # return whether self.merkle_root is the same
-        raise NotImplementedError
-
+        if m_root_comp == self.merkle_root:
+            return True
+        else:
+            return False
 
 class BlockTest(TestCase):
 
